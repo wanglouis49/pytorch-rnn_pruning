@@ -1,7 +1,7 @@
 import sys
 
 import numpy as np
-# from time import time
+from time import time
 
 import torch 
 import torchvision.datasets as dsets
@@ -42,7 +42,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=100, 
                                           shuffle=False)
 
-num_epochs = 20
+num_epochs = 1
 batch_size = 100
 learning_rate = 0.001
 
@@ -63,13 +63,14 @@ cnn.cuda()
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(cnn.parameters(), lr=learning_rate)
 
-f = open('results.txt', 'w')
-f.write("=== 1-layer cnn with adam ===\n")
+f = open('results.txt', 'a')
+f.write("=== %d-layer cnn with adam (kernel_size=%d, padding=%d) ===\n" % (num_layers, kernel_size, padding))
+print "=== %d-layer cnn with adam (kernel_size=%d, padding=%d) ===" % (num_layers, kernel_size, padding)
 
 
 # Train the Model
 for epoch in range(num_epochs):
-    # t0 = time()
+    t0 = time()
     for i, (images, labels) in enumerate(train_loader):
         images = Variable(images).cuda()
         labels = Variable(labels).cuda()
@@ -81,9 +82,9 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
         
-        # if (i+1) % 100 == 0:
-        #     print ('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f Time: %.2fs' 
-        #            %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], time()-t0))
+        if (i+1) % 100 == 0:
+            print ('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f Time: %.2fs' 
+                   %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], time()-t0))
 
 
 # Change model to 'eval' mode (BN uses moving mean/var).
@@ -121,9 +122,9 @@ param = list(cnn.parameters())
 
 
 for i in range(len(param)):
-	vis_param = param[i]
+	vis_param = param[i].cpu()
 	w = vis_param.view(-1).data.numpy()
-	f.write("layer shape %s - active weights %d/%d\n" % (str(vis_param.size()), w.nonzero()[0].shape, w.shape))
+	f.write("layer shape %s - active weights %d/%d\n" % (str(vis_param.size()), w.nonzero()[0].shape[0], w.shape[0]))
 
 f.write('\n')
 f.close()
