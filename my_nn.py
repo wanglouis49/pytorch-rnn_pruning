@@ -25,7 +25,7 @@ class CNN2(nn.Module):
     VGG CNN Model (2 conv layer)
     '''
     def __init__(self, kernel_size=3, padding=1):
-        super(CNN1, self).__init__()
+        super(CNN2, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(3, 16, kernel_size=kernel_size, padding=padding),
             # nn.BatchNorm2d(16),
@@ -40,7 +40,7 @@ class CNN2(nn.Module):
         
     def forward(self, x):
         out = self.layer1(x)
-        out = self.layer2(x)
+        out = self.layer2(out)
         out = out.view(out.size(0), -1)
         out = self.fc(out)
         return out
@@ -51,7 +51,7 @@ class CNN3(nn.Module):
     VGG CNN Model (3 conv layer)
     '''
     def __init__(self, kernel_size=3, padding=1):
-        super(CNN1, self).__init__()
+        super(CNN3, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(3, 16, kernel_size=kernel_size, padding=padding),
             # nn.BatchNorm2d(16),
@@ -71,8 +71,8 @@ class CNN3(nn.Module):
         
     def forward(self, x):
         out = self.layer1(x)
-        out = self.layer2(x)
-        out = self.layer3(x)
+        out = self.layer2(out)
+        out = self.layer3(out)
         out = out.view(out.size(0), -1)
         out = self.fc(out)
         return out
@@ -83,7 +83,7 @@ class CNN4(nn.Module):
     VGG CNN Model (4 conv layer)
     '''
     def __init__(self, kernel_size=3, padding=1):
-        super(CNN1, self).__init__()
+        super(CNN4, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(3, 16, kernel_size=kernel_size, padding=padding),
             # nn.BatchNorm2d(16),
@@ -108,9 +108,9 @@ class CNN4(nn.Module):
         
     def forward(self, x):
         out = self.layer1(x)
-        out = self.layer2(x)
-        out = self.layer3(x)
-        out = self.layer4(x)
+        out = self.layer2(out)
+        out = self.layer3(out)
+        out = self.layer4(out)
         out = out.view(out.size(0), -1)
         out = self.fc(out)
         return out
@@ -121,7 +121,7 @@ class CNN5(nn.Module):
     VGG CNN Model (5 conv layer)
     '''
     def __init__(self, kernel_size=3, padding=1):
-        super(CNN1, self).__init__()
+        super(CNN5, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(3, 16, kernel_size=kernel_size, padding=padding),
             # nn.BatchNorm2d(16),
@@ -151,10 +151,10 @@ class CNN5(nn.Module):
         
     def forward(self, x):
         out = self.layer1(x)
-        out = self.layer2(x)
-        out = self.layer3(x)
-        out = self.layer4(x)
-        out = self.layer5(x)
+        out = self.layer2(out)
+        out = self.layer3(out)
+        out = self.layer4(out)
+        out = self.layer5(out)
         out = out.view(out.size(0), -1)
         out = self.fc(out)
         return out

@@ -42,7 +42,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=100, 
                                           shuffle=False)
 
-num_epochs = 1
+num_epochs = 20
 batch_size = 100
 learning_rate = 0.001
 
