@@ -82,3 +82,243 @@ layer shape torch.Size([256]) - active weights 256/256
 layer shape torch.Size([10, 256]) - active weights 2560/2560
 layer shape torch.Size([10]) - active weights 10/10
 
+=== 1-layer cnn with adam (kernel_size=3, padding=1) ===
+Train Accuracy of the model on the 50000 test images: 54.460000 %
+Test Accuracy of the model on the 10000 test images: 54.460000 %
+layer shape torch.Size([16, 3, 3, 3]) - active weights 432/432
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([10, 4096]) - active weights 40960/40960
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 2-layer cnn with adam (kernel_size=3, padding=1) ===
+Train Accuracy of the model on the 50000 test images: 62.028000 %
+Test Accuracy of the model on the 10000 test images: 59.070000 %
+layer shape torch.Size([16, 3, 3, 3]) - active weights 432/432
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 3, 3]) - active weights 4608/4608
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([10, 2048]) - active weights 20480/20480
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 3-layer cnn with adam (kernel_size=3, padding=1) ===
+Train Accuracy of the model on the 50000 test images: 69.292000 %
+Test Accuracy of the model on the 10000 test images: 68.070000 %
+layer shape torch.Size([16, 3, 3, 3]) - active weights 432/432
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 3, 3]) - active weights 4608/4608
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 3, 3]) - active weights 18432/18432
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([10, 1024]) - active weights 10240/10240
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 4-layer cnn with adam (kernel_size=3, padding=1) ===
+Train Accuracy of the model on the 50000 test images: 73.636000 %
+Test Accuracy of the model on the 10000 test images: 69.990000 %
+layer shape torch.Size([16, 3, 3, 3]) - active weights 432/432
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 3, 3]) - active weights 4608/4608
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 3, 3]) - active weights 18432/18432
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 3, 3]) - active weights 73728/73728
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([10, 512]) - active weights 5120/5120
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 5-layer cnn with adam (kernel_size=3, padding=1) ===
+Train Accuracy of the model on the 50000 test images: 76.836000 %
+Test Accuracy of the model on the 10000 test images: 70.660000 %
+layer shape torch.Size([16, 3, 3, 3]) - active weights 432/432
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 3, 3]) - active weights 4608/4608
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 3, 3]) - active weights 18432/18432
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 3, 3]) - active weights 73728/73728
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([256, 128, 3, 3]) - active weights 294912/294912
+layer shape torch.Size([256]) - active weights 256/256
+layer shape torch.Size([10, 256]) - active weights 2560/2560
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 1-layer cnn with adam (kernel_size=5, padding=2) ===
+Train Accuracy of the model on the 50000 test images: 59.196000 %
+Test Accuracy of the model on the 10000 test images: 58.130000 %
+layer shape torch.Size([16, 3, 5, 5]) - active weights 1200/1200
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([10, 4096]) - active weights 40960/40960
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 2-layer cnn with adam (kernel_size=5, padding=2) ===
+Train Accuracy of the model on the 50000 test images: 65.746000 %
+Test Accuracy of the model on the 10000 test images: 63.640000 %
+layer shape torch.Size([16, 3, 5, 5]) - active weights 1200/1200
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 5, 5]) - active weights 12800/12800
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([10, 2048]) - active weights 20480/20480
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 3-layer cnn with adam (kernel_size=5, padding=2) ===
+Train Accuracy of the model on the 50000 test images: 73.612000 %
+Test Accuracy of the model on the 10000 test images: 70.920000 %
+layer shape torch.Size([16, 3, 5, 5]) - active weights 1200/1200
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 5, 5]) - active weights 12800/12800
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 5, 5]) - active weights 51200/51200
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([10, 1024]) - active weights 10240/10240
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 4-layer cnn with adam (kernel_size=5, padding=2) ===
+Train Accuracy of the model on the 50000 test images: 78.210000 %
+Test Accuracy of the model on the 10000 test images: 71.010000 %
+layer shape torch.Size([16, 3, 5, 5]) - active weights 1200/1200
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 5, 5]) - active weights 12800/12800
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 5, 5]) - active weights 51200/51200
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 5, 5]) - active weights 204800/204800
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([10, 512]) - active weights 5120/5120
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 5-layer cnn with adam (kernel_size=5, padding=2) ===
+Train Accuracy of the model on the 50000 test images: 76.484000 %
+Test Accuracy of the model on the 10000 test images: 70.930000 %
+layer shape torch.Size([16, 3, 5, 5]) - active weights 1200/1200
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 5, 5]) - active weights 12800/12800
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 5, 5]) - active weights 51200/51200
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 5, 5]) - active weights 204800/204800
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([256, 128, 5, 5]) - active weights 819200/819200
+layer shape torch.Size([256]) - active weights 256/256
+layer shape torch.Size([10, 256]) - active weights 2560/2560
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 1-layer cnn with adam (kernel_size=7, padding=3) ===
+Train Accuracy of the model on the 50000 test images: 57.352000 %
+Test Accuracy of the model on the 10000 test images: 57.420000 %
+layer shape torch.Size([16, 3, 7, 7]) - active weights 2352/2352
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([10, 4096]) - active weights 40960/40960
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 2-layer cnn with adam (kernel_size=7, padding=3) ===
+Train Accuracy of the model on the 50000 test images: 66.924000 %
+Test Accuracy of the model on the 10000 test images: 64.480000 %
+layer shape torch.Size([16, 3, 7, 7]) - active weights 2352/2352
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 7, 7]) - active weights 25088/25088
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([10, 2048]) - active weights 20480/20480
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 3-layer cnn with adam (kernel_size=7, padding=3) ===
+Train Accuracy of the model on the 50000 test images: 73.006000 %
+Test Accuracy of the model on the 10000 test images: 70.550000 %
+layer shape torch.Size([16, 3, 7, 7]) - active weights 2352/2352
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 7, 7]) - active weights 25088/25088
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 7, 7]) - active weights 100352/100352
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([10, 1024]) - active weights 10240/10240
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 4-layer cnn with adam (kernel_size=7, padding=3) ===
+Train Accuracy of the model on the 50000 test images: 78.780000 %
+Test Accuracy of the model on the 10000 test images: 71.820000 %
+layer shape torch.Size([16, 3, 7, 7]) - active weights 2352/2352
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 7, 7]) - active weights 25088/25088
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 7, 7]) - active weights 100352/100352
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 7, 7]) - active weights 401408/401408
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([10, 512]) - active weights 5120/5120
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 5-layer cnn with adam (kernel_size=7, padding=3) ===
+Train Accuracy of the model on the 50000 test images: 74.894000 %
+Test Accuracy of the model on the 10000 test images: 70.180000 %
+layer shape torch.Size([16, 3, 7, 7]) - active weights 2352/2352
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 7, 7]) - active weights 25088/25088
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 7, 7]) - active weights 100352/100352
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 7, 7]) - active weights 401408/401408
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([256, 128, 7, 7]) - active weights 1605632/1605632
+layer shape torch.Size([256]) - active weights 256/256
+layer shape torch.Size([10, 256]) - active weights 2560/2560
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 1-layer cnn with adam (kernel_size=9, padding=4) ===
+Train Accuracy of the model on the 50000 test images: 56.170000 %
+Test Accuracy of the model on the 10000 test images: 57.110000 %
+layer shape torch.Size([16, 3, 9, 9]) - active weights 3888/3888
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([10, 4096]) - active weights 40960/40960
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 2-layer cnn with adam (kernel_size=9, padding=4) ===
+Train Accuracy of the model on the 50000 test images: 65.322000 %
+Test Accuracy of the model on the 10000 test images: 64.210000 %
+layer shape torch.Size([16, 3, 9, 9]) - active weights 3888/3888
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 9, 9]) - active weights 41472/41472
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([10, 2048]) - active weights 20480/20480
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 3-layer cnn with adam (kernel_size=9, padding=4) ===
+Train Accuracy of the model on the 50000 test images: 71.772000 %
+Test Accuracy of the model on the 10000 test images: 67.290000 %
+layer shape torch.Size([16, 3, 9, 9]) - active weights 3888/3888
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 9, 9]) - active weights 41472/41472
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 9, 9]) - active weights 165888/165888
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([10, 1024]) - active weights 10240/10240
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 4-layer cnn with adam (kernel_size=9, padding=4) ===
+Train Accuracy of the model on the 50000 test images: 73.740000 %
+Test Accuracy of the model on the 10000 test images: 68.020000 %
+layer shape torch.Size([16, 3, 9, 9]) - active weights 3888/3888
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 9, 9]) - active weights 41472/41472
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 9, 9]) - active weights 165888/165888
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 9, 9]) - active weights 663552/663552
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([10, 512]) - active weights 5120/5120
+layer shape torch.Size([10]) - active weights 10/10
+
+=== 5-layer cnn with adam (kernel_size=9, padding=4) ===
+Train Accuracy of the model on the 50000 test images: 74.270000 %
+Test Accuracy of the model on the 10000 test images: 69.020000 %
+layer shape torch.Size([16, 3, 9, 9]) - active weights 3888/3888
+layer shape torch.Size([16]) - active weights 16/16
+layer shape torch.Size([32, 16, 9, 9]) - active weights 41472/41472
+layer shape torch.Size([32]) - active weights 32/32
+layer shape torch.Size([64, 32, 9, 9]) - active weights 165888/165888
+layer shape torch.Size([64]) - active weights 64/64
+layer shape torch.Size([128, 64, 9, 9]) - active weights 663552/663552
+layer shape torch.Size([128]) - active weights 128/128
+layer shape torch.Size([256, 128, 9, 9]) - active weights 2654208/2654208
+layer shape torch.Size([256]) - active weights 256/256
+layer shape torch.Size([10, 256]) - active weights 2560/2560
+layer shape torch.Size([10]) - active weights 10/10
+
