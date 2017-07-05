@@ -8,7 +8,7 @@ import torchvision.datasets as dsets
 import torchvision.transforms as transforms
 from torch.autograd import Variable
 
-from rnn import MY_RNN, MY_LSTM, to_var
+from rnn import MY_RNN, MY_LSTM, MY_GRU, to_var
 
 # Hyper parameters
 sequence_length = 28
@@ -17,7 +17,7 @@ hidden_size = 128
 num_layers = 1
 num_classes = 10
 batch_size = 100
-num_epochs = 20
+num_epochs = 2
 learning_rate = 0.01
 
 # MNIST Dataset
