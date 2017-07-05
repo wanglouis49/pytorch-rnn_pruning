@@ -19,8 +19,8 @@ class MY_LSTM(nn.Module):
 
 	def forward(self, x):
 		# Set initial states (num_layers, batch, hidden_size)
-		h0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
-		c0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
+		h0 = to_var(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
+		c0 = to_var(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
 
 		# Forward propagate RNN (input, (h_0, c_0) -> output, (h_n, c_n))
 		out, _ = self.lstm(x, (h0, c0))
@@ -39,7 +39,7 @@ class MY_RNN(nn.Module):
 
 	def forward(self, x):
 		# Set inital states (num_layers, batch, hidden_size)
-		h0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
+		h0 = to_var(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
 
 		# Forward propagate RNN (input, h_0 -> output, h_n)
 		out, _ = self. rnn(x, h0)
