@@ -75,7 +75,7 @@ for images, labels in test_loader:
     outputs = rnn(images)
     _, predicted = torch.max(outputs.data, 1)
     total += labels.size(0)
-    correct += (predicted == labels).sum()
+    correct += (predicted.cpu() == labels).sum()
 
 print('Test Accuracy of the model on the 10000 test images: %.2f %%' % (100. * float(correct) / total)) 
 
