@@ -40,7 +40,12 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           shuffle=False)
 
 
-rnn = MY_RNN(input_size, hidden_size, num_layers, num_classes)
+if sys.argv[1] == 'rnn':
+    rnn = MY_RNN(input_size, hidden_size, num_layers, num_classes)
+elif sys.argv[1] == 'lstm':
+    rnn = MY_LSTM(input_size, hidden_size, num_layers, num_classes)
+elif sys.argv[1] == 'gru':
+    rnn = MY_GRU(input_size, hidden_size, num_layers, num_classes)
 if torch.cuda.is_available():
 	rnn.cuda()
 

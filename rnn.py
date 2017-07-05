@@ -9,6 +9,26 @@ def to_var(x):
 	return Variable(x)
 
 
+class MY_RNN(nn.Module):
+	def __init__(self, input_size, hidden_size, num_layers, num_classes):
+		super(MY_RNN, self).__init__()
+		self.hidden_size = hidden_size
+		self.num_layers = num_layers
+		self.rnn = nn.RNN(input_size, hidden_size, num_layers, batch_first=True)
+		self.fc = nn.Linear(hidden_size, num_classes)
+
+	def forward(self, x):
+		# Set inital states (num_layers, batch, hidden_size)
+		h0 = to_var(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
+
+		# Forward propagate RNN (input, h_0 -> output, h_n)
+		out, _ = self.rnn(x, h0)
+
+		# Decode hidden state of last time step
+		out = self.fc(out[:, -1, :])
+		return out
+
+
 class MY_LSTM(nn.Module):
 	def __init__(self, input_size, hidden_size, num_layers, num_classes):
 		super(MY_LSTM, self).__init__()
@@ -29,12 +49,13 @@ class MY_LSTM(nn.Module):
 		out = self.fc(out[:, -1, :])
 		return out
 
-class MY_RNN(nn.Module):
+
+class MY_GRU(nn.Module):
 	def __init__(self, input_size, hidden_size, num_layers, num_classes):
-		super(MY_RNN, self).__init__()
+		super(MY_GRU, self).__init__()
 		self.hidden_size = hidden_size
 		self.num_layers = num_layers
-		self.rnn = nn.RNN(input_size, hidden_size, num_layers, batch_first=True)
+		self.gru = nn.GRU(input_size, hidden_size, num_layers, batch_first=True)
 		self.fc = nn.Linear(hidden_size, num_classes)
 
 	def forward(self, x):
@@ -42,8 +63,11 @@ class MY_RNN(nn.Module):
 		h0 = to_var(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
 
 		# Forward propagate RNN (input, h_0 -> output, h_n)
-		out, _ = self. rnn(x, h0)
+		out, _ = self.gru(x, h0)
 
 		# Decode hidden state of last time step
 		out = self.fc(out[:, -1, :])
 		return out
+
+
+
