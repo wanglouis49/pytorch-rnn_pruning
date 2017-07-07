@@ -43,13 +43,13 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           shuffle=False)
 
 
-rnn = MY_GRU(input_size, hidden_size, num_layers, num_classes)
+rnn = GRU(input_size, hidden_size, num_layers, num_classes)
 # if sys.argv[1] == 'rnn':
-#     rnn = MY_RNN(input_size, hidden_size, num_layers, num_classes)
+#     rnn = RNN(input_size, hidden_size, num_layers, num_classes)
 # elif sys.argv[1] == 'lstm':
-#     rnn = MY_LSTM(input_size, hidden_size, num_layers, num_classes)
+#     rnn = LSTM(input_size, hidden_size, num_layers, num_classes)
 # elif sys.argv[1] == 'gru':
-#     rnn = MY_GRU(input_size, hidden_size, num_layers, num_classes)
+#     rnn = GRU(input_size, hidden_size, num_layers, num_classes)
 if torch.cuda.is_available():
 	rnn.cuda()
 
@@ -105,6 +105,19 @@ for p in rnn.parameters():
         weight_tensors1.append(p.clone())
     pruned_inds_by_layer.append(pruned_inds)
     # count += 1
+
+# Test the Model
+correct = 0
+total = 0
+for images, labels in test_loader:
+    images = to_var(images.view(-1, sequence_length, input_size))
+    outputs = rnn(images)
+    _, predicted = torch.max(outputs.data, 1)
+    total += labels.size(0)
+    correct += (predicted.cpu() == labels).sum()
+
+print('Test Accuracy of the model on the 10000 test images: %.2f %%' % (100. * float(correct) / total)) 
+
 
 
 # Re-initialize a GRU with previous weights pruned
@@ -167,54 +180,21 @@ plt.subplot(3,1,3)
 plt.hist(weight_tensors0[2].data.numpy().reshape(10*128,1), bins=100)
 plt.figure(1)
 plt.subplot(3,1,1)
-plt.hist(weight_tensors1[0].data.numpy().reshape(384*28,1), bins=100)
+plt.hist(weight_tensors1[0].data[1-pruned_inds_by_layer[0]].numpy(), bins=100)
 plt.subplot(3,1,2)
-plt.hist(weight_tensors1[1].data.numpy().reshape(384*128,1), bins=100)
+plt.hist(weight_tensors1[1].data[1-pruned_inds_by_layer[1]].numpy(), bins=100)
 plt.subplot(3,1,3)
-plt.hist(weight_tensors1[2].data.numpy().reshape(10*128,1), bins=100)
+plt.hist(weight_tensors1[2].data[1-pruned_inds_by_layer[4]].numpy(), bins=100)
 plt.figure(2)
 plt.subplot(3,1,1)
-plt.hist(weight_tensors2[0].data.numpy().reshape(384*28,1), bins=100)
+plt.hist(weight_tensors2[0].data[1-pruned_inds_by_layer[0]].numpy(), bins=100)
 plt.subplot(3,1,2)
-plt.hist(weight_tensors2[1].data.numpy().reshape(384*128,1), bins=100)
+plt.hist(weight_tensors2[1].data[1-pruned_inds_by_layer[1]].numpy(), bins=100)
 plt.subplot(3,1,3)
-plt.hist(weight_tensors2[2].data.numpy().reshape(10*128,1), bins=100)
+plt.hist(weight_tensors2[2].data[1-pruned_inds_by_layer[4]].numpy(), bins=100)
 plt.show()
 
-# plt.figure(0)
-# plt.subplot(5,1,1)
-# plt.hist(weight_tensors0[0].numpy().reshape(384*28,1), bins=100)
-# plt.subplot(5,1,2)
-# plt.hist(weight_tensors0[1].numpy().reshape(384*128,1), bins=100)
-# plt.subplot(5,1,3)
-# plt.hist(weight_tensors0[2].numpy().reshape(384,1), bins=100)
-# plt.subplot(5,1,4)
-# plt.hist(weight_tensors0[3].numpy().reshape(384,1), bins=100)
-# plt.subplot(5,1,5)
-# plt.hist(weight_tensors0[4].numpy().reshape(10*128,1), bins=100)
-# plt.figure(1)
-# plt.subplot(5,1,1)
-# plt.hist(weight_tensors1[0].numpy().reshape(384*28,1), bins=100)
-# plt.subplot(5,1,2)
-# plt.hist(weight_tensors1[1].numpy().reshape(384*128,1), bins=100)
-# plt.subplot(5,1,3)
-# plt.hist(weight_tensors1[2].numpy().reshape(384,1), bins=100)
-# plt.subplot(5,1,4)
-# plt.hist(weight_tensors1[3].numpy().reshape(384,1), bins=100)
-# plt.subplot(5,1,5)
-# plt.hist(weight_tensors1[4].numpy().reshape(10*128,1), bins=100)
-# plt.figure(2)
-# plt.subplot(5,1,1)
-# plt.hist(weight_tensors2[0].numpy().reshape(384*28,1), bins=100)
-# plt.subplot(5,1,2)
-# plt.hist(weight_tensors2[1].numpy().reshape(384*128,1), bins=100)
-# plt.subplot(5,1,3)
-# plt.hist(weight_tensors2[2].numpy().reshape(384,1), bins=100)
-# plt.subplot(5,1,4)
-# plt.hist(weight_tensors2[3].numpy().reshape(384,1), bins=100)
-# plt.subplot(5,1,5)
-# plt.hist(weight_tensors2[4].numpy().reshape(10*128,1), bins=100)
-# plt.show()
+
 
 # Look at the weights distribution again
 

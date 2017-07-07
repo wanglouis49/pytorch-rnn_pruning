@@ -1,6 +1,9 @@
 import sys
 from time import time
 
+import numpy as np
+import pickle as pkl
+
 import torch
 import torch.nn as nn
 import torchvision
@@ -8,7 +11,10 @@ import torchvision.datasets as dsets
 import torchvision.transforms as transforms
 from torch.autograd import Variable
 
-from rnn import MY_RNN, MY_LSTM, MY_GRU, to_var
+from rnn import *
+
+
+model = sys.argv[1]
 
 # Hyper parameters
 sequence_length = 28
@@ -17,7 +23,7 @@ hidden_size = 128
 num_layers = 1
 num_classes = 10
 batch_size = 100
-num_epochs = 2
+num_epochs = 1
 learning_rate = 0.01
 
 # MNIST Dataset
@@ -40,12 +46,12 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           shuffle=False)
 
 
-if sys.argv[1] == 'rnn':
-    rnn = MY_RNN(input_size, hidden_size, num_layers, num_classes)
-elif sys.argv[1] == 'lstm':
-    rnn = MY_LSTM(input_size, hidden_size, num_layers, num_classes)
-elif sys.argv[1] == 'gru':
-    rnn = MY_GRU(input_size, hidden_size, num_layers, num_classes)
+if model == 'rnn':
+    rnn = RNN(input_size, hidden_size, num_layers, num_classes)
+elif model == 'lstm':
+    rnn = LSTM(input_size, hidden_size, num_layers, num_classes)
+elif model == 'gru':
+    rnn = GRU(input_size, hidden_size, num_layers, num_classes)
 if torch.cuda.is_available():
 	rnn.cuda()
 
@@ -54,9 +60,10 @@ optimizer = torch.optim.Adam(rnn.parameters(), lr=learning_rate)
 
 
 # Train the Model
+losses = []; accuracies = []
 for epoch in range(num_epochs):
-    t0 = time()
     for i, (images, labels) in enumerate(train_loader):
+        t0 = time()
         images = to_var(images.view(-1, sequence_length, input_size))
         labels = to_var(labels)
         
@@ -66,23 +73,20 @@ for epoch in range(num_epochs):
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
+
+        losses.append(loss)
         
         if (i+1) % 100 == 0:
-            print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Time: %.2f' 
+            accuracy = compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
+            accuracies.append(accuracy)
+            print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Accuracy: %.2f%%, Time: %.2fs' 
                    %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], \
-                     time()-t0))
+                     accuracy, time()-t0))
 
-# Test the Model
-correct = 0
-total = 0
-for images, labels in test_loader:
-    images = to_var(images.view(-1, sequence_length, input_size))
-    outputs = rnn(images)
-    _, predicted = torch.max(outputs.data, 1)
-    total += labels.size(0)
-    correct += (predicted.cpu() == labels).sum()
-
-print('Test Accuracy of the model on the 10000 test images: %.2f %%' % (100. * float(correct) / total)) 
+# compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
+with open('model/'+model+'_conv.pkl','w') as f:
+    pkl.dump(dict(losses=losses, accuracies=accuracies), f)
 
 # Save the Model
-# torch.save(rnn.state_dict(), 'rnn.pkl')
+torch.save(rnn.state_dict(), 'model/'+model+'.pkl')
+

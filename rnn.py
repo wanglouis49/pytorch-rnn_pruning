@@ -8,10 +8,22 @@ def to_var(x):
 		x = x.cuda()
 	return Variable(x)
 
+def compute_accuracy(rnn, sequence_length, input_size, data_loader, model='train'):
+	# Test the Model
+	correct = 0; total = 0
+	for images, labels in data_loader:
+		images = to_var(images.view(-1, sequence_length, input_size))
+		outputs = rnn(images)
+		_, predicted = torch.max(outputs.data, 1)
+		total += labels.size(0)
+		correct += (predicted.cpu() == labels).sum()
+	accuracy = 100. * float(correct) / total
+	return accuracy
 
-class MY_RNN(nn.Module):
+
+class RNN(nn.Module):
 	def __init__(self, input_size, hidden_size, num_layers, num_classes):
-		super(MY_RNN, self).__init__()
+		super(RNN, self).__init__()
 		self.hidden_size = hidden_size
 		self.num_layers = num_layers
 		self.rnn = nn.RNN(input_size, hidden_size, num_layers, batch_first=True)
@@ -29,9 +41,9 @@ class MY_RNN(nn.Module):
 		return out
 
 
-class MY_LSTM(nn.Module):
+class LSTM(nn.Module):
 	def __init__(self, input_size, hidden_size, num_layers, num_classes):
-		super(MY_LSTM, self).__init__()
+		super(LSTM, self).__init__()
 		self.hidden_size = hidden_size
 		self.num_layers = num_layers
 		self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
@@ -50,9 +62,9 @@ class MY_LSTM(nn.Module):
 		return out
 
 
-class MY_GRU(nn.Module):
+class GRU(nn.Module):
 	def __init__(self, input_size, hidden_size, num_layers, num_classes):
-		super(MY_GRU, self).__init__()
+		super(GRU, self).__init__()
 		self.hidden_size = hidden_size
 		self.num_layers = num_layers
 		self.gru = nn.GRU(input_size, hidden_size, num_layers, batch_first=True)
