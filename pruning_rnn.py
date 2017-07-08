@@ -10,7 +10,7 @@ from torch.autograd import Variable
 
 import matplotlib.pyplot as plt
 
-from rnn import MY_RNN, MY_LSTM, MY_GRU, to_var
+from rnn import *
 
 # Hyper parameters
 sequence_length = 28
