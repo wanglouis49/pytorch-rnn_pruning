@@ -23,8 +23,8 @@ hidden_size = 128
 num_layers = 1
 num_classes = 10
 batch_size = 100
-num_epochs = 1
-learning_rate = 0.01
+num_epochs = 100
+learning_rate = 0.001
 
 # MNIST Dataset
 train_dataset = dsets.MNIST(root='../data/',
@@ -56,7 +56,7 @@ if torch.cuda.is_available():
 	rnn.cuda()
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(rnn.parameters(), lr=learning_rate)
+optimizer = torch.optim.RMSprop(rnn.parameters(), lr=learning_rate)
 
 
 # Train the Model
