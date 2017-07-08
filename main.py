@@ -22,8 +22,8 @@ input_size = 28
 hidden_size = 128
 num_layers = 1
 num_classes = 10
-batch_size = 100
-num_epochs = 100
+batch_size = 128 
+num_epochs = 50
 learning_rate = 0.001
 
 # MNIST Dataset
@@ -74,7 +74,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-        losses.append(loss)
+        losses.append(loss.data[0])
         
         if (i+1) % 100 == 0:
             accuracy = compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
