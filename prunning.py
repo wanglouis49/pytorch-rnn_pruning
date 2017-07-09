@@ -23,7 +23,7 @@ hidden_size = 128
 num_layers = 1
 num_classes = 10
 batch_size = 128
-num_epochs = 1
+num_epochs = 50
 learning_rate = 0.001
 pruning_percentage = sys.argv[2]  # %
 
@@ -121,12 +121,12 @@ for item in pruned_inds_by_layer:
         pruned_inds.append(item.cpu())
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
-with open('model/'+model+'_retrained_conv.pkl','w') as f:
+with open('model/'+model+'_'+pruning_percentage+'_retrained_conv.pkl','w') as f:
     pkl.dump(dict(losses=losses, accuracies=accuracies, w_original=w_original,\
     	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds), f)
 
 # Save the Model
-torch.save(rnn.cpu().state_dict(), 'model/'+model+'_retrained.pkl')
+torch.save(rnn.cpu().state_dict(), 'model/'+model+'_'+pruning_percentage+'_retrained.pkl')
 
 
 
