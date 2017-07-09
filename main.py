@@ -77,7 +77,7 @@ for epoch in range(num_epochs):
         losses.append(loss.data[0])
         
         if (i+1) % 100 == 0:
-            accuracy = compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
+            accuracy = compute_accuracy(rnn, sequence_length, input_size, test_loader)
             accuracies.append(accuracy)
             print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Accuracy: %.2f%%, Time: %.2fs' 
                    %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], \

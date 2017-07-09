@@ -8,7 +8,7 @@ def to_var(x):
 		x = x.cuda()
 	return Variable(x)
 
-def compute_accuracy(rnn, sequence_length, input_size, data_loader, model='train'):
+def compute_accuracy(rnn, sequence_length, input_size, data_loader):
 	# Test the Model
 	correct = 0; total = 0
 	for images, labels in data_loader:
