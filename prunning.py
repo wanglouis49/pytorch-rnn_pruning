@@ -117,7 +117,7 @@ for p in rnn.parameters():
 
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
-with open('model/'+model+'_retrained.pkl','w') as f:
+with open('model/'+model+'_retrained_conv.pkl','w') as f:
     pkl.dump(dict(losses=losses, accuracies=accuracies, w_original=w_original,\
     	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds_by_layer), f)
 
