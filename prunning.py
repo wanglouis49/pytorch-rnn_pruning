@@ -115,11 +115,15 @@ for p in rnn.parameters():
     if len(p.data.size()) == 2:
         w_retrained.append(p.cpu().clone())
 
+pruned_inds = []
+for item in pruned_inds_by_layer:
+    if type(item) != str:
+        pruned_inds.append(item.cpu())
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
 with open('model/'+model+'_retrained_conv.pkl','w') as f:
     pkl.dump(dict(losses=losses, accuracies=accuracies, w_original=w_original,\
-    	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds_by_layer), f)
+    	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds), f)
 
 # Save the Model
 torch.save(rnn.cpu().state_dict(), 'model/'+model+'_retrained.pkl')
