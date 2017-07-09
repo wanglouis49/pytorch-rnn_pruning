@@ -23,7 +23,7 @@ hidden_size = 128
 num_layers = 1
 num_classes = 10
 batch_size = 128
-num_epochs = 50
+num_epochs = 1
 learning_rate = 0.001
 pruning_percentage = sys.argv[2]  # %
 
@@ -70,11 +70,11 @@ w_pruned = []
 for p in rnn.parameters():
     pruned_inds = 'None'
     if len(p.data.size()) == 2:
-    	threshold = np.percentile(p.data.abs().numpy(), pruning_percentage)
+    	threshold = np.percentile(p.cpu().data.abs().numpy(), pruning_percentage)
         pruned_inds = p.data.abs() < threshold
-        w_original.append(p.clone())
+        w_original.append(p.cpu().clone())
         p.data[pruned_inds] = 0.
-        w_pruned.append(p.clone())
+        w_pruned.append(p.cpu().clone())
     pruned_inds_by_layer.append(pruned_inds)
 
 
@@ -113,13 +113,13 @@ for epoch in range(num_epochs):
 w_retrained = []
 for p in rnn.parameters():
     if len(p.data.size()) == 2:
-        w_retrained.append(p.clone())
+        w_retrained.append(p.cpu().clone())
 
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
 with open('model/'+model+'_retrained.pkl','w') as f:
     pkl.dump(dict(losses=losses, accuracies=accuracies, w_original=w_original,\
-    	w_pruned=w_pruned, w_retrained=w_retrained), f)
+    	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds_by_layer), f)
 
 # Save the Model
 torch.save(rnn.cpu().state_dict(), 'model/'+model+'_retrained.pkl')
