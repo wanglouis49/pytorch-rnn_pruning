@@ -1,3 +1,6 @@
-python main.py rnn
-python main.py lstm
-python main.py gru
+python main.py rnn 2
+python main.py lstm 2
+python main.py gru 2
+python main.py rnn 3
+python main.py lstm 3
+python main.py gru 3
