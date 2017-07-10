@@ -48,7 +48,7 @@ plt.show()
 
 
 # plot weight distribution
-# with open('model/'+model+'_'+'95'+'_retrained_conv.pkl','r') as f:
+# with open('model/'+model+'_'+'85'+'_retrained_conv.pkl','r') as f:
 # 	data = pkl.load(f)
 
 # w_original = data['w_original']
