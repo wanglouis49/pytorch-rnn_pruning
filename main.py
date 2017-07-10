@@ -23,7 +23,7 @@ hidden_size = 128
 num_layers = int(sys.argv[2])
 num_classes = 10
 batch_size = 128 
-num_epochs = 50
+num_epochs = 1
 learning_rate = 0.001
 
 # MNIST Dataset
