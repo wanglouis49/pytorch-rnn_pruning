@@ -19,7 +19,7 @@ model = sys.argv[1]
 # Hyper parameters
 sequence_length = 28
 input_size = 28
-hidden_size = 6
+hidden_size = 128
 num_layers = int(sys.argv[2])
 num_classes = 10
 batch_size = 128 
