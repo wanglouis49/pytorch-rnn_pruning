@@ -19,7 +19,7 @@ model = sys.argv[1]
 # Hyper parameters
 sequence_length = 28
 input_size = 28
-hidden_size = 128
+hidden_size = 6
 num_layers = int(sys.argv[2])
 num_classes = 10
 batch_size = 128 
@@ -84,9 +84,9 @@ for epoch in range(num_epochs):
                      accuracy, time()-t0))
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
-with open('model/'+model+'_'+str(num_layers)+'_conv.pkl','w') as f:
-    pkl.dump(dict(losses=losses, accuracies=accuracies), f)
+# with open('model/'+model+'_'+str(num_layers)+'_conv.pkl','w') as f:
+#     pkl.dump(dict(losses=losses, accuracies=accuracies), f)
 
-# Save the Model
-torch.save(rnn.cpu().state_dict(), 'model/'+model+'_'+str(num_layers)+'.pkl')
+# # Save the Model
+# torch.save(rnn.cpu().state_dict(), 'model/'+model+'_'+str(num_layers)+'.pkl')
 

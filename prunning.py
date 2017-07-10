@@ -55,7 +55,7 @@ elif model == 'lstm':
 elif model == 'gru':
     rnn = GRU(input_size, hidden_size, num_layers, num_classes)
 
-rnn.load_state_dict(torch.load('model/'+model+'.pkl'))
+rnn.load_state_dict(torch.load('model/'+model+'_'+str(num_layers)+'.pkl'))
 if torch.cuda.is_available():
 	rnn.cuda()
 
