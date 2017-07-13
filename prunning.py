@@ -23,9 +23,11 @@ hidden_size = 128
 num_layers = int(sys.argv[3])
 num_classes = 10
 batch_size = 128
-num_epochs = 50
+num_epochs = 1
 learning_rate = 0.001
 pruning_percentage = sys.argv[2]  # %
+
+f_name = '_'+str(num_layers) if num_layers != 1 else ''
 
 
 # MNIST Dataset
@@ -55,22 +57,42 @@ elif model == 'lstm':
 elif model == 'gru':
     rnn = GRU(input_size, hidden_size, num_layers, num_classes)
 
-rnn.load_state_dict(torch.load('model/'+model+'_'+str(num_layers)+'.pkl'))
+rnn.load_state_dict(torch.load('model/'+model+f_name+'.pkl'))
 if torch.cuda.is_available():
 	rnn.cuda()
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.RMSprop(rnn.parameters(), lr=learning_rate)
 
-# prune the weights
+# prune the weights class uniform
+# pruned_inds_by_layer = []
+# w_original = []
+# w_pruned = []
+# # count = 0
+# for p in rnn.parameters():
+#     pruned_inds = 'None'
+#     if len(p.data.size()) == 2:
+#     	threshold = np.percentile(p.cpu().data.abs().numpy(), pruning_percentage)
+#         pruned_inds = p.data.abs() < threshold
+#         w_original.append(p.cpu().clone())
+#         p.data[pruned_inds] = 0.
+#         w_pruned.append(p.cpu().clone())
+#     pruned_inds_by_layer.append(pruned_inds)
+
+
+# prune the weights class blind
+all_weights = []
+for p in rnn.parameters():
+    if len(p.data.size()) == 2:
+        all_weights += list(p.cpu().data.abs().numpy().flatten())
+threshold = np.percentile(np.array(all_weights), pruning_percentage)
+
 pruned_inds_by_layer = []
 w_original = []
 w_pruned = []
-# count = 0
 for p in rnn.parameters():
     pruned_inds = 'None'
     if len(p.data.size()) == 2:
-    	threshold = np.percentile(p.cpu().data.abs().numpy(), pruning_percentage)
         pruned_inds = p.data.abs() < threshold
         w_original.append(p.cpu().clone())
         p.data[pruned_inds] = 0.
@@ -121,12 +143,12 @@ for item in pruned_inds_by_layer:
         pruned_inds.append(item.cpu())
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
-with open('model/'+model+'_'+pruning_percentage+'_'+str(num_layers)+'_retrained_conv.pkl','w') as f:
+with open('model/'+model+'_'+pruning_percentage+f_name+'_retrained_conv2.pkl','w') as f:
     pkl.dump(dict(losses=losses, accuracies=accuracies, w_original=w_original,\
     	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds), f)
 
 # Save the Model
-torch.save(rnn.cpu().state_dict(), 'model/'+model+'_'+pruning_percentage+'_'+str(num_layers)+'_retrained.pkl')
+torch.save(rnn.cpu().state_dict(), 'model/'+model+'_'+pruning_percentage+f_name+'_retrained2.pkl')
 
 
 
