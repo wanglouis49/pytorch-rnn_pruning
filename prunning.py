@@ -23,7 +23,7 @@ hidden_size = 128
 num_layers = int(sys.argv[3])
 num_classes = 10
 batch_size = 128
-num_epochs = 1
+num_epochs = 50
 learning_rate = 0.001
 pruning_percentage = sys.argv[2]  # %
 
