@@ -23,7 +23,7 @@ hidden_size = 128
 num_layers = 1 # int(sys.argv[3])
 num_classes = 10
 batch_size = 128
-num_epochs = 50
+num_epochs = 10
 learning_rate = 0.001
 pruning_percentage = 50  # %
 
@@ -31,12 +31,12 @@ f_name = '_'+str(num_layers) if num_layers != 1 else ''
 
 
 # MNIST Dataset
-train_dataset = dsets.MNIST(root='../data/',
+train_dataset = dsets.MNIST(root='../../data/',
                             train=True, 
                             transform=transforms.ToTensor(),
                             download=True)
 
-test_dataset = dsets.MNIST(root='../data/',
+test_dataset = dsets.MNIST(root='../../data/',
                            train=False, 
                            transform=transforms.ToTensor())
 
@@ -79,7 +79,8 @@ for i in range(num_bins):
 def force_to_mean(p_data, num_bins, bin_mean):
     result = []
     for i in range(num_bins):
-        result.append((p_data <= float(all_weights[(i+1)*num_weights/num_bins-1])) & (p_data > float(all_weights[i*num_weights/num_bins-1])))
+        result.append((p_data <= float(all_weights[(i+1)*num_weights/num_bins-1])) 
+            & (p_data >= float(all_weights[i*num_weights/num_bins])))
     return result
 
 
@@ -146,12 +147,12 @@ pruned_inds = []
 #         pruned_inds.append(item.cpu())
 
 # compute_accuracy(rnn, sequence_length, input_size, test_loader, model='test')
-with open('model/'+model+'_bin'+f_name+'_retrained_conv2.pkl','w') as f:
+with open('model/'+model+'_'+str(num_bins)+'_bin'+f_name+'_retrained_conv2.pkl','w') as f:
     pkl.dump(dict(losses=losses, accuracies=accuracies, w_original=w_original,\
     	w_pruned=w_pruned, w_retrained=w_retrained, pruned_inds_by_layer=pruned_inds), f)
 
 # Save the Model
-torch.save(rnn.cpu().state_dict(), 'model/'+model+'_bin'+f_name+'_retrained2.pkl')
+torch.save(rnn.cpu().state_dict(), 'model/'+model+'_'+str(num_bins)+'_bin'+f_name+'_retrained2.pkl')
 
 
 

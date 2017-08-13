@@ -84,12 +84,12 @@ def plot_conv(model, layers, f_name, pruning_percentage):
 		losses_original = data['losses']
 
 	accuracies_prunning = []; losses_prunning = []
-	with open('model/'+model+'_bin'+f_name+'_retrained_conv2.pkl','r') as f:
+	with open('model/'+model+'_7_bin'+f_name+'_retrained_conv2.pkl','r') as f:
 		data = pkl.load(f)
 		accuracies_prunning = data['accuracies']
 		losses_prunning = data['losses']
 
-	plt.plot(np.linspace(0,100,401), accuracies_original+accuracies_prunning)
+	plt.plot(np.linspace(0,51,205), accuracies_original+accuracies_prunning)
 	plt.xlabel('epoch')
 	plt.ylabel('test accuracy (%)')
 	plt.title(model+' '+layers+' layers')
@@ -151,7 +151,7 @@ def plot_dist(model, layers, f_name, pruning_percentage):
 
 def plot_dist2(model, layers, f_name, pruning_percentage):
 	# plot weight distribution
-	with open('model/'+model+'_bin'+f_name+'_retrained_conv2.pkl','r') as f:
+	with open('model/'+model+'_7_bin'+f_name+'_retrained_conv2.pkl','r') as f:
 		data = pkl.load(f)
 
 	w_original = data['w_original']
@@ -266,8 +266,8 @@ pruning_percentage = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80
 
 # plot1(layers, f_name, pruning_percentage)
 # plot2(layers, f_name, pruning_percentage)
-# plot_conv(model, layers, f_name, pruning_percentage)
-plot_dist2(model, layers, f_name, pruning_percentage)
+plot_conv(model, layers, f_name, pruning_percentage)
+# plot_dist2(model, layers, f_name, pruning_percentage)
 # perc_by_gate(model, layers, f_name, prune_perc)
 
 
