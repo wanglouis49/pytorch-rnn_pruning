@@ -2,8 +2,3 @@ python binning.py rnn 3
 python binning.py rnn 5
 python binning.py rnn 7
 python binning.py lstm 3
-python binning.py lstm 5
-python binning.py lstm 7
-python binning.py gru 3
-python binning.py gru 5
-python binning.py gru 7
