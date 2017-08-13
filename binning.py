@@ -58,26 +58,6 @@ elif model == 'gru':
     rnn = GRU(input_size, hidden_size, num_layers, num_classes)
 
 rnn.load_state_dict(torch.load('model/'+model+f_name+'.pkl'))
-if torch.cuda.is_available():
-	rnn.cuda()
-
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.RMSprop(rnn.parameters(), lr=learning_rate)
-
-# prune the weights class uniform
-# pruned_inds_by_layer = []
-# w_original = []
-# w_pruned = []
-# # count = 0
-# for p in rnn.parameters():
-#     pruned_inds = 'None'
-#     if len(p.data.size()) == 2:
-#     	threshold = np.percentile(p.cpu().data.abs().numpy(), pruning_percentage)
-#         pruned_inds = p.data.abs() < threshold
-#         w_original.append(p.cpu().clone())
-#         p.data[pruned_inds] = 0.
-#         w_pruned.append(p.cpu().clone())
-#     pruned_inds_by_layer.append(pruned_inds)
 
 
 # prune the weights class blind
@@ -118,6 +98,13 @@ for p in rnn.parameters():
 
 accuracies = [compute_accuracy(rnn, sequence_length, input_size, test_loader)]
 losses = []
+
+if torch.cuda.is_available():
+    rnn.cuda()
+
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.RMSprop(rnn.parameters(), lr=learning_rate)
+
 # Re-train the network but don't update zero-weights (by setting the corresponding gradients to zero)
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
