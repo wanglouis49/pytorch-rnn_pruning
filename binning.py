@@ -14,13 +14,13 @@ from torch.autograd import Variable
 from rnn import *
 
 
-model = 'rnn' # sys.argv[1]
+model = sys.argv[1]
 
 # Hyper parameters
 sequence_length = 28
 input_size = 28
 hidden_size = 128
-num_layers = 1 # int(sys.argv[3])
+num_layers = 2 # int(sys.argv[3])
 num_classes = 10
 batch_size = 128
 num_epochs = 50
@@ -88,7 +88,7 @@ for p in rnn.parameters():
 all_weights = np.array(all_weights)
 all_weights.sort()
 num_weights = len(all_weights)
-num_bins = 5
+num_bins = sys.argv[2]
 bin_mean = []
 for i in range(num_bins):
     weights_in_bin = all_weights[ i*num_weights/num_bins : (i+1)*num_weights/num_bins ]
@@ -97,12 +97,12 @@ for i in range(num_bins):
 
 
 def force_to_mean(p_data, bin_mean):
-    inds0 = (p_data <= float(all_weights[num_weights/num_bins-1])) & (p_data > float(all_weights[0]))
-    inds1 = (p_data <= float(all_weights[2*num_weights/num_bins-1])) & (p_data > float(all_weights[num_weights/num_bins-1]))
-    inds2 = (p_data <= float(all_weights[3*num_weights/num_bins-1])) & (p_data > float(all_weights[2*num_weights/num_bins-1]))
-    inds3 = (p_data <= float(all_weights[4*num_weights/num_bins-1])) & (p_data > float(all_weights[3*num_weights/num_bins-1]))
-    inds4 = (p_data <= float(all_weights[5*num_weights/num_bins-1])) & (p_data > float(all_weights[4*num_weights/num_bins-1]))
-    return [inds0, inds1, inds2, inds3, inds4]
+    num_bins = len(bin_mean)
+    result = []
+    for i in range(num_bins):
+        tmp = 
+        result.append((p_data <= float(all_weights[(i+1)*num_weights/num_bins-1])) & (p_data > float(all_weights[i*num_weights/num_bins-1])))
+    return result
 
 
 w_original = []

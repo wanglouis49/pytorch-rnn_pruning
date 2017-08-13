@@ -84,7 +84,7 @@ def plot_conv(model, layers, f_name, pruning_percentage):
 		losses_original = data['losses']
 
 	accuracies_prunning = []; losses_prunning = []
-	with open('model/'+model+'_'+'95'+f_name+'_retrained_conv.pkl','r') as f:
+	with open('model/'+model+'_bin'+f_name+'_retrained_conv2.pkl','r') as f:
 		data = pkl.load(f)
 		accuracies_prunning = data['accuracies']
 		losses_prunning = data['losses']

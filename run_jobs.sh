@@ -1,20 +1,9 @@
-python cnn_weights.py 1 3 1
-python cnn_weights.py 2 3 1
-python cnn_weights.py 3 3 1
-python cnn_weights.py 4 3 1
-python cnn_weights.py 5 3 1
-python cnn_weights.py 1 5 2
-python cnn_weights.py 2 5 2
-python cnn_weights.py 3 5 2
-python cnn_weights.py 4 5 2
-python cnn_weights.py 5 5 2
-python cnn_weights.py 1 7 3
-python cnn_weights.py 2 7 3
-python cnn_weights.py 3 7 3
-python cnn_weights.py 4 7 3
-python cnn_weights.py 5 7 3
-python cnn_weights.py 1 9 4
-python cnn_weights.py 2 9 4
-python cnn_weights.py 3 9 4
-python cnn_weights.py 4 9 4
-python cnn_weights.py 5 9 4
+python binning.py rnn 3
+python binning.py rnn 5
+python binning.py rnn 7
+python binning.py lstm 3
+python binning.py lstm 5
+python binning.py lstm 7
+python binning.py gru 3
+python binning.py gru 5
+python binning.py gru 7
