@@ -88,7 +88,7 @@ for p in rnn.parameters():
 all_weights = np.array(all_weights)
 all_weights.sort()
 num_weights = len(all_weights)
-num_bins = sys.argv[2]
+num_bins = int(sys.argv[2])
 bin_mean = []
 for i in range(num_bins):
     weights_in_bin = all_weights[ i*num_weights/num_bins : (i+1)*num_weights/num_bins ]
@@ -96,11 +96,9 @@ for i in range(num_bins):
 # bin_mean = np.array(bin_mean)
 
 
-def force_to_mean(p_data, bin_mean):
-    num_bins = len(bin_mean)
+def force_to_mean(p_data, num_bins, bin_mean):
     result = []
     for i in range(num_bins):
-        tmp = 
         result.append((p_data <= float(all_weights[(i+1)*num_weights/num_bins-1])) & (p_data > float(all_weights[i*num_weights/num_bins-1])))
     return result
 
@@ -111,7 +109,7 @@ for p in rnn.parameters():
     pruned_inds = 'None'
     if len(p.data.size()) == 2:
         w_original.append(p.cpu().clone())
-        forced_inds = force_to_mean(p.data, bin_mean)
+        forced_inds = force_to_mean(p.data, num_bins, bin_mean)
         # import ipdb; ipdb.set_trace()
         for i in range(num_bins):
             p.data[forced_inds[i]] = bin_mean[i]
