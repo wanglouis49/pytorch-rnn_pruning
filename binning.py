@@ -31,12 +31,12 @@ f_name = '_'+str(num_layers) if num_layers != 1 else ''
 
 
 # MNIST Dataset
-train_dataset = dsets.MNIST(root='../../data/',
+train_dataset = dsets.MNIST(root='../data/',
                             train=True, 
                             transform=transforms.ToTensor(),
                             download=True)
 
-test_dataset = dsets.MNIST(root='../../data/',
+test_dataset = dsets.MNIST(root='../data/',
                            train=False, 
                            transform=transforms.ToTensor())
 
